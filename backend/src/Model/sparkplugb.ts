@@ -9,6 +9,10 @@ export let SparkplugPayload = root.lookupType('com.cirruslink.sparkplug.protobuf
 
 export const SparkplugDecoder = {
   decode(input: Buffer): Base64Message | undefined {
+
+    // ! Longs are being decoded as Long { low: 2034658590, high: 390, unsigned: true } despite toNumber being called on them in the
+    // ! translation app
+    // console.log(SparkplugPayload.decode(new Uint8Array(input)));
     try {
       let message = Base64Message.fromString(
         JSON.stringify(
@@ -16,6 +20,7 @@ export const SparkplugDecoder = {
         )
       )
       message.decoder = Decoder.SPARKPLUG
+      // console.log(message);
       return message
     } catch {
       // ignore
