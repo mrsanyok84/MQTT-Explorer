@@ -12,7 +12,7 @@ export const SparkplugDecoder = {
     try {
       let message = Base64Message.fromString(
         JSON.stringify(
-          SparkplugPayload.toObject(SparkplugPayload.decode(new Uint8Array(input)))
+          SparkplugPayload.toObject(SparkplugPayload.decode(new Uint8Array(input)), {longs: Number})
         )
       )
       message.decoder = Decoder.SPARKPLUG
